@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Home Page</title>
+    <!-- Your existing styles and scripts go here -->
+    <!-- ... -->
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            overflow-x: hidden; /* To prevent horizontal scrollbar */
+        }
+
+        #navbar {
+            background-image: linear-gradient(to left, rgb(107, 79, 31), rgba(82, 75, 38, 0.637));
+            padding: 10px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            opacity: 0.8;
+        }
+
+        #navbar a {
+            color: rgb(255, 255, 255);
+            text-decoration: none;
+            padding: 10px;
+            margin: 0 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            background-image: linear-gradient(to left, rgb(107, 79, 31), rgba(82, 75, 38, 0.637));
+            cursor: pointer;
+        }
+
+        #navbar .profile {
+            height: 70px;
+            width: 70px;
+            border-radius: 50%;
+            margin-right: 10px;
+            background-color: burlywood;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        #navbar .profile img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        #avatarList {
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: black;
+            padding: 10px;
+            z-index: 2;
+            overflow-y: auto;
+            max-height: 100vh;
+            display: none;
+            opacity: 1;
+        }
+
+        #avatarList img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-bottom: 5px;
+            cursor: pointer;
+        }
+
+        #avatarList button {
+            background-color: burlywood;
+            color: white;
+            padding: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #profilePictureInput {
+            display: none;
+        }
+
+        #mainContent {
+            margin-top: 60px; /* Adjust the top margin to leave space for the navbar */
+        }
+
+        .main-box {
+            width: 520px;
+            height: 750px;
+            display: flex;
+            justify-content: space-around;
+            flex-flow: row wrap;
+            margin: auto;
+            row-gap: 1px;
+            border-radius: 10px;
+            position: relative;
+            opacity: 0.65;
+            
+        }
+
+        button {
+            width: 247px;
+            height: 233px;
+            border-radius: 10px;
+            border: none;
+            margin-top: 6px;
+        }
+
+        .alarm {
+            height: 100px;
+        }
+
+        .alarm-button {
+            background-image: linear-gradient(to left, rgb(107, 79, 31), rgba(82, 75, 38, 0.637));
+            cursor: pointer;
+        }
+
+        .time-tracking {
+            height: 110px;
+        }
+
+        .time-button {
+            background-image: linear-gradient(to right, rgb(107, 79, 31), rgba(82, 75, 38, 0.637));
+            cursor: pointer;
+        }
+
+        .to-do-list {
+            height: 110px;
+        }
+
+        .to-do-button {
+            background-image: linear-gradient(to left, rgb(107, 79, 31), rgba(82, 75, 38, 0.637));
+            cursor: pointer;
+        }
+
+        #myVideo {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-height: 100%;
+            min-width: 100%;
+        }
+
+        @media (min-aspect-ratio: 16/9) {
+            #myVideo {
+                width: 100%;
+                height: auto;
+            }
+        }
+
+        @media (max-aspect-ratio: 16/9) {
+            #myVideo {
+                width: auto;
+                height: 100%;
+            }
+        }
+
+        /* Style for user information */
+        #userInformation {
+            display: none;
+            position: absolute;
+            top: 60px;
+            right: 10px;
+            background-color: white;
+            padding: 10px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        #userInformation p {
+            margin: 0;
+        }
+
+        /* Style for overlay */
+        #overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            justify-content: center;
+            align-items: center;
+            z-index: 1;
+        }
+
+        #infoModal {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            position: relative;
+        }
+
+        #closeBtn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        #backBtn {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <video autoplay muted loop id="myVideo"> <source src="live-backdrops/mylivewallpapers-com-Leaves-in-Bedroom-4K.mp4" type="video/mp4"> </video>
+    <div id="navbar">
+        <div>
+            <div>
+                <button class="profile" onclick="toggleAvatarList()"></button>
+                <div id="avatarList">
+                    <!-- List of avatars -->
+                    <img src="pro-pics/androgynous-avatar-non-binary-queer-person (1).jpg" alt="Avatar 1" onclick="setProfilePicture(this)">
+                    <img src="pro-pics/androgynous-avatar-non-binary-queer-person (2).jpg" alt="Avatar 2" onclick="setProfilePicture(this)">
+                    <img src="pro-pics/androgynous-avatar-non-binary-queer-person (3).jpg" alt="Avatar 3" onclick="setProfilePicture(this)">
+                    <img src="pro-pics/androgynous-avatar-non-binary-queer-person (4).jpg" alt="Avatar 1" onclick="setProfilePicture(this)">
+                    <img src="pro-pics/androgynous-avatar-non-binary-queer-person (5).jpg" alt="Avatar 2" onclick="setProfilePicture(this)">
+                    <img src="pro-pics/androgynous-avatar-non-binary-queer-person (6).jpg" alt="Avatar 3" onclick="setProfilePicture(this)">
+                    <img src="pro-pics/androgynous-avatar-non-binary-queer-person (7).jpg" alt="Avatar 1" onclick="setProfilePicture(this)">
+                    <img src="pro-pics/androgynous-avatar-non-binary-queer-person.jpg" alt="Avatar 2" onclick="setProfilePicture(this)">
+                    <img src="pro-pics/androgynous-avatar-non-binary-queer-person(9).jpg" alt="Avatar 3" onclick="setProfilePicture(this)">
+                    <!-- Add more avatars as needed -->
+                    <button onclick="closeAvatarList()">Close</button>
+                </div>
+            </div>
+        </div>
+        <div>
+            <a href="#" onclick="openSettings()">Settings</a>
+            <a href="#" onclick="logout()">Logout</a>
+            <a href="#" onclick="openUserInformation()">User Information</a>
+        </div>
+    </div>
+
+    <div id="overlay">
+        <div id="infoModal">
+            <span id="closeBtn" onclick="closeUserInformationModal()">&times;</span>
+            <h2>User Information</h2>
+            <p>Username: <span id="modalUsername"></span></p>
+            <p>Email: <span id="modalEmail"></span></p>
+            <!-- Add more user information here -->
+
+            <!-- Back button to close the modal and return to the home page -->
+            <button id="backBtn" onclick="closeUserInformationModal()">Back to Home</button>
+        </div>
+    </div>
+
+    <div id="mainContent" class="main-box">
+        <a href="">
+            <button class="alarm-button"> <img class="alarm" src="alarm.png" alt=""></button>
+        </a>
+        <a href="stopwatch/Gold-Stopwatch.html">
+            <button class="time-button"><img class="time-tracking" src="time-tracking.png" alt=""></button>
+        </a>
+        <a href="to-do-list/index.php">
+            <button class="to-do-button"><img class="to-do-list" src="to-do-list.png" alt=""></button>
+        </a>
+
+        <button></button>
+        <button></button>
+        <button></button>
+    </div>
+
+    <script>
+         document.addEventListener("DOMContentLoaded", function () {
+        // Check if user information is available
+        var loggedInUsername = localStorage.getItem("loggedInUsername");
+        var loggedInEmail = localStorage.getItem("loggedInEmail");
+
+        if (loggedInUsername && loggedInEmail) {
+            // Display user information in modal
+            var modalUsername = document.getElementById("modalUsername");
+            var modalEmail = document.getElementById("modalEmail");
+
+            modalUsername.innerText = loggedInUsername;
+            modalEmail.innerText = loggedInEmail;
+        }
+    });
+
+    function openSettings() {
+        // Add your settings functionality here
+        alert("Open Settings");
+    }
+
+    function logout() {
+        // Add your logout functionality here
+        alert("Logout");
+        // For example, clear local storage and redirect to the login page
+        localStorage.clear();
+        window.location.href = "login.html";
+    }
+
+    function openUserInformation() {
+        // Show the overlay
+        document.getElementById("overlay").style.display = "flex";
+    }
+
+    function closeUserInformationModal() {
+        // Hide the overlay
+        document.getElementById("overlay").style.display = "none";
+    }
+           
+
+        function toggleAvatarList() {
+            var avatarList = document.getElementById("avatarList");
+            avatarList.style.display = avatarList.style.display === "none" ? "flex" : "none";
+        }
+        function openAvatarList() {
+        document.getElementById("avatarList").style.display = "block";
+    }
+
+    function closeAvatarList() {
+        document.getElementById("avatarList").style.display = "none";
+    }
+
+    function setProfilePicture(avatar) {
+        var profileImage = document.querySelector('.profile');
+        profileImage.style.backgroundImage = "url('" + avatar.src + "')";
+        profileImage.style.backgroundSize = "cover";
+        closeAvatarList();
+    }
+       
+    </script>
+</body>
+
+</html>
